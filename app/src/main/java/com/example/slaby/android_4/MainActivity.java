@@ -1,5 +1,6 @@
 package com.example.slaby.android_4;
 
+import android.media.MediaPlayer;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -13,12 +14,16 @@ public class MainActivity extends AppCompatActivity {
     String result = "";
     TextView helper;
     Boolean isFinished = false;
+    MediaPlayer successSound;
+    MediaPlayer failSound;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         helper = (TextView) findViewById(R.id.helper);
+        successSound = MediaPlayer.create(this, R.raw.onsuccess);
+        failSound = MediaPlayer.create(this, R.raw.onfail);
         onStartAction();
     }
 
@@ -81,12 +86,14 @@ public class MainActivity extends AppCompatActivity {
         helper.setText(numberOne + " x " + numberTwo + " = " + result + " Brawo!!!");
         isFinished = true;
         Button check = (Button) findViewById(R.id.checkBtn);
+        successSound.start();
         check.setText("DALEJ");
     }
 
     public void onError() {
         helper.setText("Błąd!!! " + numberOne + " x " + numberTwo + " = " + numberOne * numberTwo);
         isFinished = true;
+        failSound.start();
         Button check = (Button) findViewById(R.id.checkBtn);
         check.setText("DALEJ");
     }
