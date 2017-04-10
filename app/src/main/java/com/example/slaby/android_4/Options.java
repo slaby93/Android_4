@@ -6,6 +6,7 @@ import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.RadioButton;
 
 public class Options extends AppCompatActivity {
@@ -26,12 +27,20 @@ public class Options extends AppCompatActivity {
     }
 
     public void onImageClick(View view) {
-        System.out.println("TEST ON CLICK Options");
-        goBackToMainActivity();
+        ImageView imageView = (ImageView) view;
+        int id = imageView.getId();
+        System.out.println("ID: " + id);
+        goBackToMainActivity(id);
     }
 
     public void goBackToMainActivity() {
         Intent myIntent = new Intent(this, MainActivity.class);
+        startActivity(myIntent);
+    }
+
+    public void goBackToMainActivity(int value) {
+        Intent myIntent = new Intent(this, MainActivity.class);
+        myIntent.putExtra("photo", value);
         startActivity(myIntent);
     }
 }

@@ -3,11 +3,16 @@ package com.example.slaby.android_4;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.Drawable;
 import android.media.MediaPlayer;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
@@ -29,10 +34,35 @@ public class MainActivity extends AppCompatActivity {
         helper = (TextView) findViewById(R.id.helper);
         successSound = MediaPlayer.create(this, R.raw.onsuccess);
         failSound = MediaPlayer.create(this, R.raw.onfail);
-
         prefs = getSharedPreferences("com.example.slaby.android_4", Context.MODE_PRIVATE);
-        zakres = prefs.getInt("zakres",5);
+        zakres = prefs.getInt("zakres", 5);
+        tryToSetBackground();
+
         onStartAction();
+    }
+
+    public void tryToSetBackground() {
+        RelativeLayout rl = (RelativeLayout) findViewById(R.id.activity_main);
+        Drawable toSet = new ColorDrawable(getResources().getColor(R.color.colorPrimary));
+        Intent intent = getIntent();
+        if (intent.hasExtra("photo")) {
+            int resourceId = intent.getIntExtra("photo", -1);
+            switch (resourceId) {
+                case 2131492976:
+                    toSet = ContextCompat.getDrawable(this, R.mipmap.foto3);
+                    break;
+                case 2131492977:
+                    toSet = ContextCompat.getDrawable(this, R.mipmap.foto2);
+                    break;
+                case 2131492978:
+                    toSet = ContextCompat.getDrawable(this, R.mipmap.foto1);
+                    break;
+            }
+
+        } else {
+            toSet = new ColorDrawable(getResources().getColor(R.color.white));
+        }
+        rl.setBackground(toSet);
     }
 
     public void onStartAction() {
@@ -59,7 +89,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public Integer randomInt() {
-        System.out.println("ZAKRES " + zakres);
         return (int) ((Math.random() * 100) % (zakres + 1));
     }
 

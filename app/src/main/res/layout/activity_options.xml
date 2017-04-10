@@ -87,28 +87,30 @@
                 android:orientation="horizontal">
 
                 <ImageView
-                    android:id="@+id/imageView3"
+                    android:id="@+id/image3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:contentDescription="Image1"
+                    android:onClick="onImageClick"
+                    android:scaleType="centerCrop"
+                    app:srcCompat="@mipmap/foto3" />
+
+                <ImageView
+                    android:id="@+id/image2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:onClick="onImageClick"
                     android:scaleType="centerCrop"
-                    app:srcCompat="@mipmap/foto3"
-                    android:contentDescription="Image1" />
-
-                <ImageView
-                    android:id="@+id/imageView2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:scaleType="centerCrop"
                     app:srcCompat="@mipmap/foto2" />
 
                 <ImageView
-                    android:id="@+id/imageView"
+                    android:id="@+id/image1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:onClick="onImageClick"
                     android:scaleType="centerCrop"
                     app:srcCompat="@mipmap/foto1" />
             </LinearLayout>
