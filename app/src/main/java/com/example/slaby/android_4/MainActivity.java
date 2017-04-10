@@ -1,5 +1,8 @@
 package com.example.slaby.android_4;
 
+import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.media.MediaPlayer;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -9,13 +12,15 @@ import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
 
-    Integer numberOne = randomInt();
-    Integer numberTwo = randomInt();
+    Integer numberOne = 0;
+    Integer numberTwo = 0;
     String result = "";
     TextView helper;
     Boolean isFinished = false;
     MediaPlayer successSound;
     MediaPlayer failSound;
+    SharedPreferences prefs;
+    Integer zakres;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,6 +29,9 @@ public class MainActivity extends AppCompatActivity {
         helper = (TextView) findViewById(R.id.helper);
         successSound = MediaPlayer.create(this, R.raw.onsuccess);
         failSound = MediaPlayer.create(this, R.raw.onfail);
+
+        prefs = getSharedPreferences("com.example.slaby.android_4", Context.MODE_PRIVATE);
+        zakres = prefs.getInt("zakres",5);
         onStartAction();
     }
 
@@ -51,7 +59,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public Integer randomInt() {
-        return (int) ((Math.random() * 100) % 11);
+        System.out.println("ZAKRES " + zakres);
+        return (int) ((Math.random() * 100) % (zakres + 1));
     }
 
     public void onNumberClick(View view) {
@@ -99,6 +108,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void onOptions(View view) {
-        System.out.println("OPTIONS");
+        Intent myIntent = new Intent(this, Options.class);
+        startActivity(myIntent);
     }
 }
